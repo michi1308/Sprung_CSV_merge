@@ -3,7 +3,7 @@ import os
 import tkinter as tk
 from tkinter import messagebox
 
-# todo: dateipfad für vorlage überlegen: fixer pfad oder flexibel eingeben? konsequenzen für .exe?
+# todo: code um funktionen aus test2 ergänzen, damit alles in einem code läuft
 
 def csv_daten_verarbeiten(data_root):
     """Funktion zur Verarbeitung der CSV-Daten."""
@@ -91,3 +91,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
