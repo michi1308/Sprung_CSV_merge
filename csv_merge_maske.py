@@ -3,6 +3,8 @@ import os
 import tkinter as tk
 from tkinter import messagebox
 
+# todo: dateipfad für vorlage überlegen: fixer pfad oder flexibel eingeben? konsequenzen für .exe?
+
 def csv_daten_verarbeiten(data_root):
     """Funktion zur Verarbeitung der CSV-Daten."""
     filenames = os.listdir(data_root)
@@ -64,20 +66,24 @@ def gui_erstellen():
     root = tk.Tk()
     root.title("CSV Verarbeitungs-Tool")
 
+    # Setze die Fenstergröße auf das Dreifache der Originalgröße
+    root.geometry("700x300")  # Breite x Höhe
+
     # Label für das Eingabefeld
-    path_label = tk.Label(root, text="Geben Sie den Pfad zu den CSV-Daten an:")
-    path_label.pack(padx=10, pady=10)
+    path_label = tk.Label(root, text="Geben Sie den Pfad zu den CSV-Daten an. Die Excel-Datei wird in denselben Ordner gespeichert.")
+    path_label.pack(padx=15, pady=10)
 
     # Eingabefeld für den Pfad
-    path_entry = tk.Entry(root, width=50)
-    path_entry.pack(padx=10, pady=10)
+    path_entry = tk.Entry(root, width=85)  # Breitere Eingabefelder
+    path_entry.pack(padx=15, pady=10)
 
     # Button, um den Prozess zu starten
     process_button = tk.Button(root, text="Verarbeiten", command=lambda: button_klick(path_entry))
-    process_button.pack(padx=10, pady=10)
+    process_button.pack(padx=15, pady=10)
 
     # Start der GUI
     root.mainloop()
+
 
 def main():
     """Hauptfunktion zur Ausführung der Anwendung."""
