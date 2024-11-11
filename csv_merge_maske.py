@@ -11,7 +11,8 @@ def csv_daten_verarbeiten(data_root):
     # Durchlaufe alle Dateien im angegebenen Verzeichnis
     for file in filenames:
         uebergabe = os.path.join(data_root, file)  # Erstelle den Pfad
-        if uebergabe.endswith('.csv'):  # Nur CSV-Dateien verarbeiten
+
+        try:
             with open(uebergabe, 'r', newline='') as csvfile:
                 csv_reader = csv.reader(csvfile, delimiter=';')
                 raw_data = list(csv_reader)
@@ -20,6 +21,9 @@ def csv_daten_verarbeiten(data_root):
                 if len(raw_data) >= 6:
                     data_without_header = raw_data[5]  # 6. Zeile (Index 5)
                     all_data.append(data_without_header)  # Zeile zur Liste hinzufügen
+        except Exception as e:
+            messagebox.showerror("Fehler", f"Fehler beim Öffnen der Datei {file}: {e}")
+            continue  # Überspringe diese Datei und fahre mit der nächsten fort
 
     return all_data
 
@@ -28,10 +32,13 @@ def daten_speichern(data, output_path):
     if os.path.isfile(output_path):
         messagebox.showwarning("Achtung", f"Die Datei {output_path} existiert bereits. Wählen Sie einen anderen Pfad oder löschen Sie die Datei.")
     else:
-        with open(output_path, 'w', newline='') as output_csvfile:
-            writer = csv.writer(output_csvfile)
-            writer.writerows(data)  # Schreibe die gesammelten Zeilen in die neue Datei
-        messagebox.showinfo("Erfolg", f"Die Datei wurde erfolgreich gespeichert unter: {output_path}")
+        try:
+            with open(output_path, 'w', newline='') as output_csvfile:
+                writer = csv.writer(output_csvfile)
+                writer.writerows(data)  # Schreibe die gesammelten Zeilen in die neue Datei
+            messagebox.showinfo("Erfolg", f"Die Datei wurde erfolgreich gespeichert unter: {output_path}")
+        except Exception as e:
+            messagebox.showerror("Fehler", f"Fehler beim Speichern der Datei: {e}")
 
 def button_klick(path_entry):
     """Funktion, die ausgeführt wird, wenn der Button geklickt wird."""
