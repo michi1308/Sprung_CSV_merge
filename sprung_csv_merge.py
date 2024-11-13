@@ -62,6 +62,17 @@ def hole_vorlage(file_path, num_rows=5):
         return None
 
 # Funktion zum Speichern der Daten in einer Excel-Datei
+# def daten_speichern(data, output_path):
+#     """Speichert die Daten in einer Excel-Datei."""
+#     if data is None:
+#         print("Keine Daten zum Speichern.")
+#         return
+#     try:
+#         data.to_excel(output_path, index=False, header=False)
+#         print(f'Datei erfolgreich gespeichert als {output_path}')
+#     except Exception as e:
+#         messagebox.showerror("Fehler", f"Fehler beim Speichern der Excel-Datei: {e}")
+
 def daten_speichern(data, output_path):
     """Speichert die Daten in einer Excel-Datei."""
     if data is None:
@@ -70,6 +81,8 @@ def daten_speichern(data, output_path):
     try:
         data.to_excel(output_path, index=False, header=False)
         print(f'Datei erfolgreich gespeichert als {output_path}')
+        # Erfolgs-Meldung anzeigen
+        messagebox.showinfo("Erfolg", f"Die Datei wurde erfolgreich gespeichert unter: {output_path}")
     except Exception as e:
         messagebox.showerror("Fehler", f"Fehler beim Speichern der Excel-Datei: {e}")
 
@@ -108,14 +121,18 @@ def gui_erstellen():
     root.title("CSV Verarbeitungs-Tool")
     root.geometry("700x300")
 
+    # Info-Label für die Pfad-Eingabe
+    info_label = tk.Label(root, text="Pfade immer ohne Anführungsstriche angeben.")
+    info_label.pack(padx=15, pady=5)
+
     # Eingabe für den CSV-Ordnerpfad
-    path_label = tk.Label(root, text="Geben Sie den Pfad zu den CSV-Daten an:")
+    path_label = tk.Label(root, text="Hier den Ordnerpfad zu den CSV-Daten angeben. Die fertige Datei wird in den Ordner gespeichert.")
     path_label.pack(padx=15, pady=5)
     path_entry = tk.Entry(root, width=85)
     path_entry.pack(padx=15, pady=5)
 
     # Eingabe für den Vorlagenpfad
-    vorlage_label = tk.Label(root, text="Geben Sie den Pfad zur Excel-Vorlage an:")
+    vorlage_label = tk.Label(root, text="Hier den Pfad zur Excel-Vorlage angeben.")
     vorlage_label.pack(padx=15, pady=5)
     vorlage_entry = tk.Entry(root, width=85)
     vorlage_entry.pack(padx=15, pady=5)
